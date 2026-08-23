@@ -63,7 +63,7 @@ export async function listarEventos(req: Request, res: Response) {
 }
 
 export async function detalharEvento(req: Request, res: Response) {
-  const { id } = req.params;
+  const id = String(req.params.id);
 
   const evento = await prisma.evento.findUnique({
     where: { id },
@@ -76,7 +76,7 @@ export async function detalharEvento(req: Request, res: Response) {
 }
 
 export async function editarSessao(req: Request, res: Response) {
-  const { sessaoId } = req.params;
+  const sessaoId = String(req.params.sessaoId);
   const { dataHora, local, preco } = req.body;
 
   try {
