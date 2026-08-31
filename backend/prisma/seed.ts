@@ -7,10 +7,10 @@ async function criarUsuario(nome: string, email: string, papel: 'ORGANIZADOR' | 
 }
 
 async function main() {
-  await criarUsuario('Organizador Demo', 'organizador@cinepass.com', 'ORGANIZADOR');
-  await criarUsuario('Cliente Demo 1', 'cliente@cinepass.com', 'CLIENTE');
-  await criarUsuario('Cliente Demo 2', 'cliente2@cinepass.com', 'CLIENTE');
-  await criarUsuario('Portaria Demo', 'portaria@cinepass.com', 'PORTARIA');
+  await criarUsuario('Organizador Demo', 'organizador@email.com', 'ORGANIZADOR');
+  await criarUsuario('Cliente Demo 1', 'cliente@email.com', 'CLIENTE');
+  await criarUsuario('Cliente Demo 2', 'cliente2@email.com', 'CLIENTE');
+  await criarUsuario('Portaria Demo', 'portaria@email.com', 'PORTARIA');
   const evento = await prisma.evento.upsert({ where: { tmdbId: 999001 }, update: {}, create: { tmdbId: 999001, titulo: 'Sessão CinePass', sinopse: 'Uma sessão de demonstração para percorrer o fluxo completo do desafio.', posterUrl: 'https://image.tmdb.org/t/p/w500/8YFL5QQVPy3AgrEQwNYXEGot6bH.jpg' } });
   const sessaoExistente = await prisma.sessao.findFirst({ where: { eventoId: evento.id } });
   const sessao = sessaoExistente ?? await prisma.sessao.create({ data: { eventoId: evento.id, dataHora: new Date(Date.now() + 86400000), local: 'Sala 01', capacidade: 50, preco: 32.9 } });
